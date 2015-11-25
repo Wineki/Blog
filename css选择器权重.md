@@ -1,8 +1,8 @@
-title: css选择器权重总结
-date: 2015-11-25 20:11:56
-tags:css选择器
----------------------------------
-最近些项目发现了css的一些小问题总结出来，主要是关于css选择器权重相关的。
+title: css选择器优先级权重分析
+date: 2015-11-25 23:25:41
+tags:
+---
+最近写项目发现了css的一些小问题总结出来，主要是关于css选择器权重相关的。
 在浏览器中，我们在编写页面样式的时候通常都要考虑选择器的优先级，使得页面的样式不会被覆盖或覆盖其他样式。
 总体来说优先级是这样的（此处从高到底排序）：
 >!important  ->   行内样式style(此处包含写在html结构中的和用js动态加载上去的style)  ->  id选择器  ->  伪类  ->  class选择器  ->  元素选择器  ->  通用选择器( * )
@@ -13,4 +13,6 @@ tags:css选择器
 
     1.<p style="color:red" id="test"></p>
 
-    2.document.getElementById('test').
+    2. document.getElementById('topnav').style.color = 'red'
+
+3.关于伪类的优先级遵循：LVHA,从右向左优先级逐级增加
