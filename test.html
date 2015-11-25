@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<style>
+    a:link{
+        color:green;
+    }
+    .test-http{
+        color:red;
+    }
+    .test-relative{
+        color:red;
+    }
+
+
+
+    .test-not:not(.not){
+        color:red;
+    }
+</style>
+<body>
+    <a href="http://www.haosou.com" class="test-http">超链接HTTP请求</a>
+    <a href="/" class="test-relative">相对目录</a>
+
+    <div class="test-not">测试伪类not</div>
+    <div class="not">123</div>
+</body>
+<script type="text/javascript" src="http://s0.qhimg.com/lib/jquery/183.js"></script>
+<script type="text/javascript">
+</script>
+</html>
