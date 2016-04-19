@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<style>
+	.mh-title{
+	    margin-bottom: 10px;
+	}
+	.mh-title:before {
+	    content: "";
+	    display: inline-block;
+	    width: 2px;
+	    height: 12px;
+	    background: #00be3c;
+	    margin-right: 10px;
+	}
+	.mh-title,.mh-title-link{
+		text-decoration: none;
+		font-size: 14px;
+		color: #666;
+		line-height: 24px;
+	}
+	.mh-title-link:hover{
+		text-decoration: underline;
+	}
+	.mh-total {
+		font-size: 24px;
+		color: #f8b616;
+		line-height: 24px;
+		height: 24px;
+	}
+	.mh-year-last {
+	    font-size: 18px;
+	}
+	.mh-chart-wrap {
+	    position: relative;
+	    height: 170px;
+	    font-size: 12px;
+	    cursor: pointer;
+	    margin-top: 16px;
+	}
+	.mh-chart-wrap .mh-chart-x {
+	    margin-left: 10px;
+	    position: absolute;
+	    bottom: 0;
+		width: 100%;
+		height: 30px;
+	}
+	.mh-chart-wrap .js-mh-chart-y {
+	    margin-right: 10px;
+	    width: 70px;
+	    line-height: 29px;
+	    color: #666;
+	    position: absolute;
+	    top: -21px;
+	}
+	.mh-chart-wrap .js-mh-chart-y .mh-cy:nth-child(4) {
+	    visibility: hidden;
+	}
+	.mh-chart-wrap .mh-chart-x .mh-cx {
+	    color: #666;
+	    position: absolute;
+	}
+	.mh-chart-wrap .mh-chart-x .js-mh-xChart0{
+		visibility:hidden;
+	}
+	.mh-chart-wrap .mh-chart {
+	    position: absolute;
+	    left: 0;
+	    top: 0;
+	    right:0;
+	    height:156px;
+	}
+	.mh-chart .mh-cx-tip {
+	    background-color: #ccc;
+	    color: #fff;
+	    padding: 0 4px;
+	    position: absolute;
+	    bottom: 0;
+	}
+	.mh-chart-wrap .mh-canvas-chart,.mh-chart-wrap .mh-canvas-tip {
+	    position: absolute;
+	    top: 0;
+	    width: 420px;
+	    height: 132px;
+	}
+	.mh-chart-wrap .mh-map-tip {
+	    width: 140px;
+	    border: 1px solid #e5e5e5;
+	    padding: 0 10px;
+	    box-sizing: border-box;
+	    background-color: #fff;
+	    position: absolute;
+	    z-index: 1;
+	}
+	.mh-chart-wrap .mh-map-tip-left:before {
+	    content: '';
+	    position: absolute;
+	    top: 50%;
+	    left: -14px;
+	    border-top: 7px solid transparent;
+	    border-right: 7px solid #eaeaea;
+	    border-left: 7px solid transparent;
+	    border-bottom: 7px solid transparent;
+	    z-index: 1;
+	    margin-top: -7px;
+	}
+	.mh-chart-wrap .mh-map-tip-left:after {
+	    content: '';
+	    position: absolute;
+	    top: 50%;
+	    left: -12px;
+	    border-top: 7px solid transparent;
+	    border-right: 7px solid #fff;
+	    border-left: 7px solid transparent;
+	    border-bottom: 7px solid transparent;
+	    z-index: 1;
+	    margin-top: -7px;
+	}
+	.mh-chart-wrap .mh-map-tip-right:before{
+		content: '';
+		position: absolute;
+		top: 50%;
+		right: -15px;
+		border-top: 7px solid transparent;
+		border-left: 7px solid #eaeaea;
+		border-right: 7px solid transparent;
+		border-bottom: 7px solid transparent;
+		z-index: 1;
+		margin-top: -7px;
+	}
+	.mh-chart-wrap .mh-map-tip-right:after{
+		content: '';
+		position: absolute;
+		top: 50%;
+		right: -13px;
+		border-top: 7px solid transparent;
+		border-left: 7px solid #fff;
+		border-right: 7px solid transparent;
+		border-bottom: 7px solid transparent;
+		z-index: 1;
+		margin-top: -7px;
+	}
+	.mh-chart-wrap .mh-val {
+	    float: right;
+	}
+	.mh-chart-wrap .mh-val.mh-yellow {
+	    color: #f8b616;
+	}
+	.mh-moreinfo{
+		font-size: 13px;
+	}
+	.mh-moreinfo .mh-txt-more {
+	    text-decoration: none;
+	    margin: 0 5px;
+	}
+	.mh-moreinfo .mh-txt-more:nth-child(2){
+		margin-left:0;
+	}
+	.mh-moreinfo .mh-txt-more:hover{
+		text-decoration: underline;
+	}
+	.mh-link-title {
+	    color: #666;
+	    text-decoration: none;
+	    font-size: 13px;
+	}
+	.mh-link-title:hover {
+	    text-decoration: underline;
+	}
+	.mh-foot-right{
+		float:right;
+	}
+	.mh-footer-space {
+	    color: #666;
+	    padding: 0 6px;
+	}
+	.mh-url {
+	    margin-top: 5px;
+	    font-size: 13px;
+	}
+	.mh-url cite{
+		float:left;
+	}
+	.mh-other-title {
+	    margin-bottom: 5px;
+	}
+	.mh-other-title:before{
+		content: "";
+	    display: inline-block;
+	    width: 2px;
+	    height: 12px;
+	    background: #00be3c;
+	    margin-right: 10px;
+	}
+	.mh-bar {
+	    color: #ccc;
+	}
+	cite {
+	    color: green;
+	}
+	cite em {
+	    color: green;
+	    padding: 0 3px;
+	}
+	</style>
+</head>
+<body>
+<h3>这是一个DEMO</h3>
+<div class="mh-box-wrap">
+	<div class="mh-chart-wrap">
+		<div class="js-mh-chart-y"></div>
+		<div class="js-mh-chart-x mh-chart-x g-clearfix">
+			<span class="mh-tip-x"></span>
+		</div>
+		<div class="mh-chart">
+			<div class="js-mh-tip">
+				<div class="js-mh-head-wrap"></div>
+				<div class="g-clearfix">
+					<span class="mh-label js-mh-variety-head"></span>
+					<span class="mh-val mh-yellow js-mh-variety-val"></span>
+				</div>
+				<div class="js-mh-form-wrap"></div>
+			</div>
+			<span class="mh-cx-tip"></span>
+		</div>
+	</div>
+</div>
+<script src="http://s3.qhimg.com/static/2cf8bd87a8b17759/hidpiCanva.js" type="text/javascript"></script>
+<script src="http://s1.qhimg.com/static/614502053569b9d6/excanvas.js" type="text/javascript"></script>
+<script src="http://s2.qhimg.com/static/8d28609a8a38e107/zepto_1.1.2.touch.js" type="text/javascript"></script>
+<script type="text/javascript">
+		var boxId = ".mh-box-wrap";
+		var chart = $('.mh-box-wrap');
+		var currDataX = 2014;
+		var currDataY = 43593;
+		var data = {"title":"\u79d1\u5a01\u7279\u4eba\u5747\u5730\u533a\u751f\u4ea7\u603b\u503c(Per Capita GDP)","variety":"\u4eba\u5747GDP","district":"\u79d1\u5a01\u7279","x_unit":"\u5e74","y_unit":"\u7f8e\u5143","x_number":"5","point":[{"x":"1965","y":"4349","information":{"head":[{"head1":"1965\u5e74","head2":"\u5168\u5e74"}],"form":[{"form1":"\u589e\u957f","form2":""}]}},{"x":"1966","y":"4481","information":{"head":[{"head1":"1966\u5e74","head2":"\u5168\u5e74"}],"form":[{"form1":"\u589e\u957f","form2":"3.05%"}]}},{"x":"1967","y":"4167","information":{"head":[{"head1":"1967\u5e74","head2":"\u5168\u5e74"}],"form":[{"form1":"\u589e\u957f","form2":"-7.01%"}]}},{"x":"1968","y":"4166","information":{"head":[{"head1":"1968\u5e74","head2":"\u5168\u5e74"}],"form":[{"form1":"\u589e\u957f","form2":"-0.04%"}]}},{"x":"1969","y":"3990","information":{"head":[{"head1":"1969\u5e74","head2":"\u5168\u5e74"}],"form":[{"form1":"\u589e\u957f","form2":"-4.2%"}]}},{"x":"1970","y":"3830","information":{"head":[{"head1":"1970\u5e74","head2":"\u5168\u5e74"}],"form":[{"form1":"\u589e\u957f","form2":"-4.02%"}]}},{"x":"1971","y":"4803","information":{"head":[{"head1":"1971\u5e74","head2":"\u5168\u5e74"}],"form":[{"form1":"\u589e\u957f","form2":"25.39%"}]}},{"x":"1972","y":"5134","information":{"head":[{"head1":"1972\u5e74","head2":"\u5168\u5e74"}],"form":[{"form1":"\u589e\u957f","form2":"6.91%"}]}},{"x":"1973","y":"5835","information":{"head":[{"head1":"1973\u5e74","head2":"\u5168\u5e74"}],"form":[{"form1":"\u589e\u957f","form2":"13.65%"}]}},{"x":"1974","y":"13161","information":{"head":[{"head1":"1974\u5e74","head2":"\u5168\u5e74"}],"form":[{"form1":"\u589e\u957f","form2":"125.52%"}]}},{"x":"1975","y":"11437","information":{"head":[{"head1":"1975\u5e74","head2":"\u5168\u5e74"}],"form":[{"form1":"\u589e\u957f","form2":"-13.1%"}]}},{"x":"1976","y":"11772","information":{"head":[{"head1":"1976\u5e74","head2":"\u5168\u5e74"}],"form":[{"form1":"\u589e\u957f","form2":"2.93%"}]}},{"x":"1977","y":"11971","information":{"head":[{"head1":"1977\u5e74","head2":"\u5168\u5e74"}],"form":[{"form1":"\u589e\u957f","form2":"1.69%"}]}},{"x":"1978","y":"12426","information":{"head":[{"head1":"1978\u5e74","head2":"\u5168\u5e74"}],"form":[{"form1":"\u589e\u957f","form2":"3.8%"}]}},{"x":"1979","y":"18814","information":{"head":[{"head1":"1979\u5e74","head2":"\u5168\u5e74"}],"form":[{"form1":"\u589e\u957f","form2":"51.4%"}]}},{"x":"1980","y":"20687","information":{"head":[{"head1":"1980\u5e74","head2":"\u5168\u5e74"}],"form":[{"form1":"\u589e\u957f","form2":"9.96%"}]}},{"x":"1981","y":"17253","information":{"head":[{"head1":"1981\u5e74","head2":"\u5168\u5e74"}],"form":[{"form1":"\u589e\u957f","form2":"-16.6%"}]}},{"x":"1982","y":"14206","information":{"head":[{"head1":"1982\u5e74","head2":"\u5168\u5e74"}],"form":[{"form1":"\u589e\u957f","form2":"-17.66%"}]}},{"x":"1983","y":"13157","information":{"head":[{"head1":"1983\u5e74","head2":"\u5168\u5e74"}],"form":[{"form1":"\u589e\u957f","form2":"-7.38%"}]}},{"x":"1984","y":"13088","information":{"head":[{"head1":"1984\u5e74","head2":"\u5168\u5e74"}],"form":[{"form1":"\u589e\u957f","form2":"-0.53%"}]}},{"x":"1985","y":"12358","information":{"head":[{"head1":"1985\u5e74","head2":"\u5168\u5e74"}],"form":[{"form1":"\u589e\u957f","form2":"-5.58%"}]}},{"x":"1986","y":"9820","information":{"head":[{"head1":"1986\u5e74","head2":"\u5168\u5e74"}],"form":[{"form1":"\u589e\u957f","form2":"-20.54%"}]}},{"x":"1987","y":"11662","information":{"head":[{"head1":"1987\u5e74","head2":"\u5168\u5e74"}],"form":[{"form1":"\u589e\u957f","form2":"18.76%"}]}},{"x":"1988","y":"10331","information":{"head":[{"head1":"1988\u5e74","head2":"\u5168\u5e74"}],"form":[{"form1":"\u589e\u957f","form2":"-11.42%"}]}},{"x":"1989","y":"11834","information":{"head":[{"head1":"1989\u5e74","head2":"\u5168\u5e74"}],"form":[{"form1":"\u589e\u957f","form2":"14.55%"}]}},{"x":"1990","y":"8950","information":{"head":[{"head1":"1990\u5e74","head2":"\u5168\u5e74"}],"form":[{"form1":"\u589e\u957f","form2":"-24.37%"}]}},{"x":"1991","y":"5484","information":{"head":[{"head1":"1991\u5e74","head2":"\u5168\u5e74"}],"form":[{"form1":"\u589e\u957f","form2":"-38.72%"}]}},{"x":"1995","y":"16610","information":{"head":[{"head1":"1995\u5e74","head2":"\u5168\u5e74"}],"form":[{"form1":"\u589e\u957f","form2":""}]}},{"x":"1996","y":"19228","information":{"head":[{"head1":"1996\u5e74","head2":"\u5168\u5e74"}],"form":[{"form1":"\u589e\u957f","form2":"15.76%"}]}},{"x":"1997","y":"18001","information":{"head":[{"head1":"1997\u5e74","head2":"\u5168\u5e74"}],"form":[{"form1":"\u589e\u957f","form2":"-6.38%"}]}},{"x":"1998","y":"14687","information":{"head":[{"head1":"1998\u5e74","head2":"\u5168\u5e74"}],"form":[{"form1":"\u589e\u957f","form2":"-18.41%"}]}},{"x":"1999","y":"16254","information":{"head":[{"head1":"1999\u5e74","head2":"\u5168\u5e74"}],"form":[{"form1":"\u589e\u957f","form2":"10.67%"}]}},{"x":"2000","y":"19545","information":{"head":[{"head1":"2000\u5e74","head2":"\u5168\u5e74"}],"form":[{"form1":"\u589e\u957f","form2":"20.25%"}]}},{"x":"2001","y":"17532","information":{"head":[{"head1":"2001\u5e74","head2":"\u5168\u5e74"}],"form":[{"form1":"\u589e\u957f","form2":"-10.3%"}]}},{"x":"2002","y":"18674","information":{"head":[{"head1":"2002\u5e74","head2":"\u5168\u5e74"}],"form":[{"form1":"\u589e\u957f","form2":"6.51%"}]}},{"x":"2003","y":"22841","information":{"head":[{"head1":"2003\u5e74","head2":"\u5168\u5e74"}],"form":[{"form1":"\u589e\u957f","form2":"22.31%"}]}},{"x":"2004","y":"27437","information":{"head":[{"head1":"2004\u5e74","head2":"\u5168\u5e74"}],"form":[{"form1":"\u589e\u957f","form2":"20.12%"}]}},{"x":"2005","y":"35694","information":{"head":[{"head1":"2005\u5e74","head2":"\u5168\u5e74"}],"form":[{"form1":"\u589e\u957f","form2":"30.09%"}]}},{"x":"2006","y":"42498","information":{"head":[{"head1":"2006\u5e74","head2":"\u5168\u5e74"}],"form":[{"form1":"\u589e\u957f","form2":"19.06%"}]}},{"x":"2007","y":"45159","information":{"head":[{"head1":"2007\u5e74","head2":"\u5168\u5e74"}],"form":[{"form1":"\u589e\u957f","form2":"6.26%"}]}},{"x":"2008","y":"54484","information":{"head":[{"head1":"2008\u5e74","head2":"\u5168\u5e74"}],"form":[{"form1":"\u589e\u957f","form2":"20.65%"}]}},{"x":"2009","y":"36754","information":{"head":[{"head1":"2009\u5e74","head2":"\u5168\u5e74"}],"form":[{"form1":"\u589e\u957f","form2":"-32.54%"}]}},{"x":"2010","y":"37725","information":{"head":[{"head1":"2010\u5e74","head2":"\u5168\u5e74"}],"form":[{"form1":"\u589e\u957f","form2":"2.64%"}]}},{"x":"2011","y":"47551","information":{"head":[{"head1":"2011\u5e74","head2":"\u5168\u5e74"}],"form":[{"form1":"\u589e\u957f","form2":"26.05%"}]}},{"x":"2012","y":"50903","information":{"head":[{"head1":"2012\u5e74","head2":"\u5168\u5e74"}],"form":[{"form1":"\u589e\u957f","form2":"7.05%"}]}},{"x":"2013","y":"48463","information":{"head":[{"head1":"2013\u5e74","head2":"\u5168\u5e74"}],"form":[{"form1":"\u589e\u957f","form2":"-4.79%"}]}},{"x":"2014","y":"43593","information":{"head":[{"head1":"2014\u5e74","head2":"\u5168\u5e74"}],"form":[{"form1":"\u589e\u957f","form2":"-10.05%"}]}}],"showtxt":{"showtxt":"\u4e16\u754c\u94f6\u884c","url":"http:\/\/data.worldbank.org.cn\/indicator\/NY.GDP.MKTP.CD ","m_url":"http:\/\/data.worldbank.org.cn\/indicator\/NY.GDP.MKTP.CD "},"more":{"value":["\u56fd\u5185\u751f\u4ea7\u603b\u503c","\u603b\u4eba\u53e3","\u5c45\u6c11\u6d88\u8d39\u4ef7\u683c\u6307\u6570"]},"showurl":"data.worldbank.org.cn"};
+		var pointList = data.point;
+		var pointLen = pointList.length;
+		var xNum = +data.x_number;
+		var minX = +pointList[0].x;
+		var maxX = +pointList[pointLen-1].x;
+		var xSpacing = Math.round((maxX - minX)/(xNum-1));
+		var xVal = minX;
+		var unitx = data.x_unit;
+		var unity = data.y_unit;
+		var mapWidth = $(boxId).width()-30;
+		var mapHeight = 120;
+		var yVal = new Array();
+		var pInfo = {};
+		for(var i=0; i<pointLen; i++){
+			/*point中x,y数据处理，存为哈希格式*/
+			yVal.push(+pointList[i].y);
+			/*information字段处理，按照x的值作为索引*/
+			pInfo[+pointList[i].x] = pointList[i].information;
+		}
+		yVal.sort(function(a,b){return a<b?1:-1});
+		/*处理point坐标数据*/
+		var pointdataList = [];
+		$.each(pointList,function(index,item){
+			pointdataList[item.x] = item.y;
+		});
+		/*Y轴上下误差*/
+		var errVal = Math.round((yVal[0] - yVal[yVal.length-1]) *0.05);
+		var minY = yVal[yVal.length-1] - errVal;
+		var maxY = yVal[0] - errVal;
+		var ySpacing = Math.ceil((maxY - minY)/3);
+		/*X轴坐标生成*/
+		var xparam = {
+			val:xVal,
+			maxVal:maxX,
+			minVal:minX,
+			unit:unitx,
+			className:'mh-cx',
+			parentNode:'.js-mh-chart-x',
+			spacing:xSpacing
+		};
+		var ChartXs = creatCoordinate(xparam,true);
+		/*Y轴坐标生成*/
+		var yparam ={
+			val:minY,
+			maxVal:maxY,
+			minVal:minY,
+			unit:unity,
+			className:'mh-cy',
+			parentNode:'.js-mh-chart-y',
+			spacing:ySpacing
+		}
+		var ChartYs = creatCoordinate(yparam,false);
+			
+
+		/*处理纵坐标数据*/
+		function dataYround(y,isVertical){
+			var Y;
+			var accurate = 0;
+			if(isVertical){
+				/*处理纵坐标数据*/
+				if(data.cpi_year !== undefined){
+					/*cpi类型数据不进行处理*/
+					Y = {
+						y:y,
+						unit:'%'
+					};
+					return Y;
+				}else{
+					/*处理纵坐标数据，逻辑为保证显示数字小于等于4位另加一个小数点*/
+					if(y >= 1e12){
+						y = y/1e12;
+						accurate = 4-(''+Math.floor(y)).length;
+						Y = {y:y.toFixed(accurate),
+							 unit:'万亿'
+						};
+						return Y;
+					}else if( y >= 1e8){
+						y = y/1e8;
+						accurate = 4-(''+Math.floor(y)).length;
+						Y = {y:y.toFixed(accurate),
+							unit:'亿'
+						};
+						return Y;
+					}else if(y >= 1e4){
+						y = y/1e4;
+						accurate = 4-(''+Math.floor(y)).length;
+						Y = {
+							y:y.toFixed(accurate),
+							unit:'万'
+						};
+						return Y;
+					}else{
+						Y = {
+							y:y,
+							unit:''
+						};
+						return Y;
+					}
+				}
+			}else{
+				/*处理hover卡片数据*/
+				if(data.cpi_year !== undefined){
+					/*cpi类型数据不进行处理*/
+					Y = {
+						y:y,
+						unit:'%'
+					};
+					return Y;
+				}else if(y >= 1e14){
+					/*处理大于等于15位数据*/
+					y = parseInt(y/1e12);
+					Y = {y:y,
+						 unit:'万亿'
+					};
+					return Y;
+				}else if( y >= 1e10){
+					/*处理大于等于11位小于15位数据*/
+					y = parseInt(y/1e8);
+					Y = {y:y,
+						unit:'亿'
+					};
+					return Y;
+				}else if(y >= 1e6){
+					/*处理大于等于7位数据*/
+					y = parseInt(y/1e4);
+					Y = {
+						y:y,
+						unit:'万'
+					};
+					return Y;
+				}else{
+					/*处理小于7位数据*/
+					Y = {
+						y:y,
+						unit:''
+					};
+					return Y;
+				}
+			}
+		}
+
+
+		/*生成坐标轴*/
+		function creatCoordinate(param,isX){
+			var _this = this;
+			var Carr = new Array();
+			if(isX){
+				for(var i=0;i<4;i++){
+					$(param.parentNode,chart).append('<span class="'+param.className+' js-mh-xChart'+i+'">'+param.val+'</span>');
+					var left = parseInt(((param.val - param.minVal) * mapWidth /(param.maxVal - param.minVal)) - $('.js-mh-xChart'+i).width()/2);
+					$('.js-mh-xChart'+i)[0].style.left=left+"px";
+					Carr.push(param.val);
+					param.val += param.spacing;
+				}
+				/*生成最后一个点*/
+				$(param.parentNode,chart).append('<span class="'+param.className+' js-mh-xChart'+i+'">'+param.maxVal+'</span>');
+				var left = parseInt(((param.maxVal - param.minVal) * mapWidth /(param.maxVal - param.minVal)) - $('.js-mh-xChart'+i).width()/2);
+				$('.js-mh-xChart'+i)[0].style.left=left+"px";
+			}else{
+				while(param.val < param.maxVal){
+					var valY = dataYround(param.val,true);
+					$(param.parentNode,chart).prepend('<p class='+param.className+'>'+valY.y+valY.unit+'</p>');
+					Carr.push(param.val);
+					param.val += param.spacing;
+				}
+				/*生成最后一个点*/
+				var valY = dataYround(param.maxVal,true);
+				$(param.parentNode,chart).prepend('<p class='+param.className+'>'+valY.y+valY.unit+'</p>');
+			}
+			
+			Carr.push(param.maxVal);
+			return Carr;
+		}
+		
+		
+		function showTipDivCallback(pointData){
+			var _this = this;
+			/*填充数据*/
+			var info = _this.data.pointInfo[pointData.x];
+			var varietyHead = $('.js-mh-variety-head', _this.ele.tipsWrap);
+			var variety = $('.js-mh-variety-val', _this.ele.tipsWrap);
+			 _this.ele.tipsWrap.addClass('mh-map-tip');
+			if(info == undefined){
+				/*针对无数据情况进行处理*/
+				var tipHead = $('.js-mh-head', _this.ele.tipsWrap);
+				var tipHeadVal = $('.js-mh-head-val', _this.ele.tipsWrap);
+				var tipForm = $('.js-mh-form', _this.ele.tipsWrap);
+				var tipFormVal = $('.js-mh-form-val', _this.ele.tipsWrap);
+				tipHead.text(pointData.x);
+				tipHeadVal.text(pointList[0].information.head[0].head2);
+				varietyHead.text(data.variety);
+				variety.text("暂无数据");
+				tipForm.text("");
+				tipFormVal.text("");
+				
+			}else{
+				var Yval = dataYround(+_this.data.pointsDataList[pointData.x],false);
+				var form = info.form;
+				var head = info.head;
+				var tipHeadWrap = $('.js-mh-head-wrap', _this.ele.tipsWrap);
+				var tipFormWrap = $('.js-mh-form-wrap', _this.ele.tipsWrap);
+				if(head.length !== 0){
+					for(var i=0; i<head.length; i++){
+						var tipHead = '<span class="mh-label js-mh-head">'+head[i].head1+'</span>';
+						var tipHeadVal = '<span class="mh-val js-mh-head-val">'+head[i].head2+'</span>';
+						tipHeadWrap.show();
+						tipHeadWrap.html('<div class="g-clearfix">'+tipHead+tipHeadVal+'</div>');
+					}
+				}else{
+					tipHeadWrap.hide();
+				}
+				if(form.length !== 0){
+					for(var i=0; i<form.length; i++){
+						var tipForm = '<span class="mh-label js-mh-form">'+form[i].form1+'</span>';
+						var tipFormVal = '<span class="mh-val mh-yellow  js-mh-form-val">'+form[i].form2+'</span>';
+						tipFormWrap.show();
+						tipFormWrap.html('<div class="g-clearfix">'+tipForm+tipFormVal+'</div>');
+					}
+				}else{
+						tipFormWrap.hide();
+				}
+				varietyHead.text(data.variety);
+				if(data.cpi_year !== undefined){
+					variety.text(Yval.y+Yval.unit);
+				}else{
+					variety.text(Yval.y+Yval.unit+data.y_unit);
+				}
+			}
+			/*数据框样式处理*/
+			var tipdivHeight = parseInt(_this.ele.tipsWrap.css('height'))/2;
+			var tipdivWidth = parseInt(_this.ele.tipsWrap.css('width'));
+			var top = info !== undefined ? _this.data.arcPos.y - tipdivHeight:30;
+			if(_this.data.arcPos.x <= _this.data.mapWidth / 2){
+				var left = _this.data.arcPos.x + 20;
+				_this.ele.tipsWrap.css('left',left);
+				_this.ele.tipsWrap.removeClass('mh-map-tip-right');
+				_this.ele.tipsWrap.addClass('mh-map-tip-left');
+				
+			}else{
+				var left = _this.data.arcPos.x - 20 - tipdivWidth;
+				_this.ele.tipsWrap.css('left',left);
+				_this.ele.tipsWrap.removeClass('mh-map-tip-left');
+				_this.ele.tipsWrap.addClass('mh-map-tip-right');
+			}
+			_this.ele.tipsWrap.css('top',top);
+		}
+		/*鼠标hover效果*/
+		function showTipCallback(){
+			var _this = this;
+			var callback = function(ctx,pointData){
+				/*获取该点在canvas中的坐标*/
+				_this.getPosition(pointData);
+				/*画点和线*/
+				_this.drawArcPoint(ctx,pointData);
+				_this.showTipDivCallback(pointData);
+			};
+			var tipCanvas = _this.ele.canvasTip,
+				wrapRect = $(_this.ele.canvasWrap)[0].getBoundingClientRect();
+				wrapLeft = wrapRect.left,
+				wrapTop = wrapRect.top,
+				leftp = parseInt(wrapLeft),
+				topp = parseInt(wrapTop);
+				ctx = tipCanvas.getContext('2d');
+				
+				/*初始化hover效果*/
+				$(tipCanvas).off('touchstart touchmove touchend touchcancel');
+				$(tipCanvas).on('touchstart touchmove',function(e){
+					e.preventDefault();
+					/*当前点X轴在map表位置*/
+					var pointsCx = _this.getmouseX(e.touches[0].clientX,ctx,leftp);
+					/*当前hover点的横纵坐标数据值*/
+					var pointData = _this.getDataByPoints(pointsCx);
+					callback(ctx,pointData);
+					_this.ele.tipsWrap.show();
+					_this.ele.tipsTextWrap.show();
+				}).on('touchend touchcancel',function(e){
+					ctx.clearRect(0, 0, _this.data.chartWidth, _this.data.chartHeight);
+					_this.ele.tipsWrap.hide();
+					_this.ele.tipsTextWrap.hide();
+				});
+		}
+		/*绘制表格*/
+		function Chart( config ){
+			var _this = this;
+			_this.ele = {
+				canvasWrap:'.mh-chart',
+				canvasChart:null,
+				canvasTip:null,
+				tipsTextWrap:null,
+				tipsWrap:null
+			};
+			
+			_this.data = {
+				isIE78: navigator.userAgent.match(/MSIE\s*[78]+/),
+				isIE6: navigator.userAgent.match(/MSIE\s*[6]+/),
+				lineNum : config.lineNum,
+				lOffset: config.lOffset,
+				rOffset: config.rOffset,
+				chartWidth: config.chartWidth,
+				chartHeight: config.chartHeight,
+				points:config.points,
+				pointInfo:config.pointInfo,
+				pointsDataList: config.pointsDataList,
+				dataNum: config.dataNum,
+				
+				lineSpace:config.lineSpace,
+				ChartXs:config.ChartXs,
+				ChartYs:config.ChartYs,
+				mapHeight:config.mapHeight,
+				mapWidth:null,
+				unitx:config.unitx,
+				unity:config.unity,
+				tOffset:config.tOffset,
+				pointrOffset:config.pointrOffset,
+				minX:config.minX,
+				maxX:config.maxX
+			};
+			_this.data.mapWidth = config.chartWidth - config.lOffset - config.rOffset;
+			_this.creatCoordinate = config.creatCoordinate;
+			_this.showTipDivCallback = config.showTipDivCallback;
+			_this.showTipCallback = config.showTipCallback;
+			_this.init(config);
+		}
+		Chart.prototype = {
+			constructor:Chart,
+			init: function(){
+				var _this = this;
+				_this.ele.canvasWrap = $(_this.ele.canvasWrap);
+				_this.initCanvas('mh-canvas-chart');
+				_this.initCanvas('mh-canvas-tip');
+				
+				
+				_this.ele.canvasChart = $('.mh-canvas-chart',_this.ele.canvasWrap)[0];
+				_this.ele.canvasTip = $('.mh-canvas-tip',_this.ele.canvasWrap)[0]; 
+				_this.ele.tipsTextWrap = $('.mh-cx-tip',_this.ele.canvasWrap);
+				_this.ele.tipsWrap = $('.js-mh-tip',_this.ele.canvasWrap);
+				_this.getSpace(_this.data.ChartXs,_this.data.ChartYs);
+				_this.getPosition(_this.data.points);
+				_this.drawChart();
+				_this.showTip();
+			},
+			initCanvas : function(className){
+				var _this = this;
+				var canvasEle = document.createElement('canvas');
+				var width = +_this.data.chartWidth;
+				var height = +_this.data.chartHeight;
+				
+				$(canvasEle).width(width)
+							.height(height)
+							.attr('width',width)
+							.attr('height',height)
+							.addClass(className);
+				if(_this.data.isIE78 || _this.data.isIE6){
+					canvasEle=window.G_vmlCanvasManager.initElement(canvasEle);
+				}
+				_this.ele.canvasWrap.append(canvasEle);
+			},
+			drawChart: function(){
+				var _this = this;
+				var chartCtx = _this.ele.canvasChart.getContext('2d');
+				chartCtx.translate(0.5, 0.5);
+				/*画背景网格*/
+				_this.drawBackground(chartCtx);
+				
+				/*画数据*/
+				_this.drawPoint(chartCtx);
+			},
+			drawBackground: function(ctx){
+				var _this = this;
+				ctx.beginPath();
+				ctx.strokeStyle = '#dcdcdc';
+				ctx.lineWidth = 1.0;
+				var lineSpace = _this.data.lineSpace;
+				for(var i=0;i<_this.data.lineNum;i++){
+					var lineY = parseInt(i * lineSpace);
+					ctx.moveTo(0,lineY+_this.data.tOffset);
+					ctx.lineTo(_this.data.chartWidth, lineY+_this.data.tOffset);
+				}
+				ctx.stroke();
+			},
+			drawPoint: function(ctx){
+				var _this = this;
+				_this.getPosition(_this.data.points);
+				
+				ctx.strokeStyle = '#19b955';
+				ctx.fillStyle = '#19b955';
+				ctx.lineWidth = 2.0;
+				ctx.beginPath();
+				for(var i=0; i<_this.data.pointsPosition.length;i++){
+					if(i + 1 === _this.data.pointsPosition.length){
+						break;
+					}
+					ctx.moveTo(_this.data.pointsPosition[i][0],_this.data.pointsPosition[i][1]);
+					ctx.lineTo(_this.data.pointsPosition[i+1][0],_this.data.pointsPosition[i+1][1])
+				}
+				ctx.stroke();
+			},
+			getSpace: function(cxArr,cyArr){
+				var _this = this;
+				var cxLen = cxArr.length || 0,
+					cyLen = cyArr.length || 0,
+					cySapce = 0,
+					cxSpace = 0;
+				
+				var cxSpace = cxArr[cxLen-1]-cxArr[0];
+				var cySpace = cyArr[cyLen-1]-cyArr[0];
+				_this.data.minxVal = cxArr[0];
+				_this.data.maxyVal = cyArr[cyLen-1];
+				_this.data.space={
+					cx:cxSpace,
+					cy:cySpace
+				};
+				
+			},
+			getPosition: function(pointsArr){
+				var _this = this;
+				var space = _this.data.space;
+				var pointsPosition = [];
+				var minx = _this.data.minxVal;
+				var maxy = _this.data.maxyVal;
+				if(pointsArr instanceof(Array)){
+					$.each(pointsArr,function(index,item){
+						var position = new Array();
+						var xplen = item.x-minx;
+						var yplen = maxy - item.y;
+						var cx = xplen * _this.data.mapWidth / _this.data.space.cx + _this.data.lOffset || 0;
+						var cy = yplen * _this.data.mapHeight / _this.data.space.cy + _this.data.pointrOffset || 0;
+						
+						position.push(cx);
+						position.push(cy);
+						pointsPosition.push(position);
+						_this.data.pointsPosition = pointsPosition;
+					});
+				}else{
+					/*处理画点单个数据*/
+					var xplen = pointsArr.x-minx;
+					var yplen = maxy - pointsArr.y;
+					var cx = xplen * _this.data.mapWidth / _this.data.space.cx  + _this.data.lOffset || 0;
+					var cy = yplen * _this.data.mapHeight / _this.data.space.cy + _this.data.pointrOffset|| 0;
+					var arcPos = {x:cx,y:cy};
+					_this.data.arcPos= arcPos;
+				}
+			},
+			/*根据hover点的x坐标获取对应垫的实际数据*/
+			getDataByPoints: function(pointsCx){
+				var _this = this;
+				var pointsYearx = parseInt((pointsCx * _this.data.space.cx)/_this.data.mapWidth) + _this.data.minxVal;
+				pointsYearx = pointsYearx > _this.data.maxX ? _this.data.maxX : pointsYearx;
+				pointsYearx = pointsYearx < _this.data.minX ? _this.data.minX : pointsYearx;
+				var pointsYeary = _this.data.pointsDataList[pointsYearx];
+				var pointData = {x:pointsYearx,y:pointsYeary};
+				return pointData;
+			},
+			/*画鼠标hover的竖线*/
+			getmouseX: function(clintX,ctx,left){
+				var _this = this;
+				var cx = parseInt(clintX-left) || 0;
+				
+				
+				var llimit = 0;
+				var rlimit = _this.data.mapWidth + _this.data.lOffset;
+				
+				cx = cx <= llimit ?llimit : cx;
+				cx = cx >= rlimit ?rlimit : cx;
+				return cx;
+			},
+			/*画鼠标hover圆点以及竖线*/
+			drawArcPoint: function(ctx,pointData){
+				var _this = this;
+				
+				/*画出横坐标的动态值*/
+				_this.ele.tipsTextWrap.text(pointData.x);
+				if( _this.data.arcPos.x >= _this.data.mapWidth){
+					_this.ele.tipsTextWrap[0].style.removeProperty('left');
+					_this.ele.tipsTextWrap[0].style.right = 0+'px';
+				}else{
+					_this.ele.tipsTextWrap[0].style.removeProperty('right');
+					_this.ele.tipsTextWrap[0].style.left = _this.data.arcPos.x - _this.ele.tipsTextWrap.width()/2 +'px';
+				}
+				
+				ctx.clearRect(0,0,_this.data.chartWidth,_this.data.chartHeight);
+				ctx.beginPath();
+				ctx.strokeStyle = '#dcdcdc';
+				ctx.lineWidth = 1.0;
+				ctx.moveTo(_this.data.arcPos.x,0);
+				ctx.lineTo(_this.data.arcPos.x,_this.data.mapHeight+_this.data.tOffset);
+				ctx.stroke();
+				if(pointData.y !== undefined){
+					ctx.beginPath();
+					ctx.arc(_this.data.arcPos.x,_this.data.arcPos.y,4.5,0,Math.PI*2,true);
+					ctx.fillStyle = "#19b955";
+					ctx.fill();
+				}
+			},
+			showTip: function(){
+				var _this = this;
+				_this.showTipCallback.apply(_this, [].slice.call(arguments));
+			},
+			showTipDivCallback: function(){
+				var _this = this;
+				_this.showTipCallback.apply(_this, [].slice.call(arguments));
+			}
+		};
+		
+		
+		var chartCon = {
+			tOffset:15,
+			lOffset: 15,
+			rOffset: 15,
+			pointrOffset:15,
+			chartWidth: $(boxId).width(),
+			chartHeight: 160,
+			points:pointList,
+			pointsDataList:pointdataList,
+			pointInfo:pInfo,
+			dataNum: pointList.length,
+			ChartXs:ChartXs,
+			ChartYs:ChartYs,
+			mapWidth:$(boxId).width(),
+			mapHeight:mapHeight,
+			lineNum :4,
+			lineSpace:40,
+			showTipCallback:showTipCallback,
+			showTipDivCallback:showTipDivCallback,
+			unitx:unitx,
+			unity:unity,
+			minX:minX,
+			maxX:maxX
+		};
+		new Chart(chartCon);
+		window.addEventListener('resize', function(){
+			window.location.reload();
+		});
+</script>
+</body>
+</html>
